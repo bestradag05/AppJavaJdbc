@@ -20,26 +20,24 @@ public class CategoryDao {
         Category category;
         String sqlQuery;
 
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
+
 
         //process
 
-        try{
-            //sql query
-            sqlQuery = "select id, name, description, url_key, state, created_at, updated_at from categories";
+        //sql query
+        sqlQuery = "select id, name, description, url_key, state, created_at, updated_at from categories";
 
-            //Get connection
-            connection = new ConnectionCore().getConnection();
+        try (
+                //Get connection
+                Connection connection = new ConnectionCore().getConnection();
 
-            // Prepare statement
+                // Prepare statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
-            preparedStatement = connection.prepareStatement(sqlQuery);
+                //ResultSet
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-            //ResultSet
-
-            resultSet = preparedStatement.executeQuery();
+                ){
 
             //Set Data
             while(resultSet.next()){
@@ -71,26 +69,6 @@ public class CategoryDao {
 
         }catch (Exception e){
             System.out.println("CategoryDao::findAll::Error: " + e.getMessage());
-        }
-        finally {
-
-            try {
-
-                if(resultSet != null && !resultSet.isClosed()){
-                    resultSet.close();
-                }
-
-                if(preparedStatement != null && !preparedStatement.isClosed()){
-                    preparedStatement.close();
-                }
-
-                if(connection != null && !connection.isClosed()){
-                    connection.close();
-                }
-
-            }catch (Exception e ){
-                System.out.println("CategoryDao::findAll::Finally " + e.getMessage());
-            }
         }
 
         //result

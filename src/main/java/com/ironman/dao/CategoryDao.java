@@ -20,9 +20,9 @@ public class CategoryDao {
         Category category;
         String sqlQuery;
 
-        Connection connection;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
 
         //process
 
@@ -71,6 +71,26 @@ public class CategoryDao {
 
         }catch (Exception e){
             System.out.println("CategoryDao::findAll::Error: " + e.getMessage());
+        }
+        finally {
+
+            try {
+
+                if(resultSet != null && !resultSet.isClosed()){
+                    resultSet.close();
+                }
+
+                if(preparedStatement != null && !preparedStatement.isClosed()){
+                    preparedStatement.close();
+                }
+
+                if(connection != null && !connection.isClosed()){
+                    connection.close();
+                }
+
+            }catch (Exception e ){
+                System.out.println("CategoryDao::findAll::Finally " + e.getMessage());
+            }
         }
 
         //result

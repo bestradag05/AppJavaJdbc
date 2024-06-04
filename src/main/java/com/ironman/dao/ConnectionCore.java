@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class ConnectionCore {
 
-    public Connection getConnection() {
+    public Connection getConnection() throws  Exception {
         //Attributes
         String hostName = "dpg-cpa0r9tds78s73cp2ueg-a.oregon-postgres.render.com";
         String port = "5432";
@@ -19,7 +19,7 @@ public class ConnectionCore {
 
 
         // Load driver
-        try {
+
 
             Class.forName("org.postgresql.Driver");
 
@@ -31,11 +31,6 @@ public class ConnectionCore {
             //result
             return DriverManager.getConnection(url, userName, password);
 
-        } catch (Exception e) {
-            System.out.println("ConnectionCore::getConnection::Error: " + e.getMessage());
-        }
-
-        return null;
 
     }
 

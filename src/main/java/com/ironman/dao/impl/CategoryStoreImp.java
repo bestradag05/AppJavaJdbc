@@ -1,5 +1,7 @@
-package com.ironman.dao;
+package com.ironman.dao.impl;
 
+import com.ironman.dao.CategoryDao;
+import com.ironman.dao.ConnectionCore;
 import com.ironman.entity.Category;
 
 import java.sql.Connection;
@@ -7,20 +9,71 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-public interface CategoryDao {
+public class CategoryStoreImp implements CategoryDao {
 
-    List<Category> findAll() throws  Exception;
+    @Override
+    public List<Category> findAll() throws Exception {
+        // Attributes
 
-    Category findById(Long id) throws  Exception;
+        List<Category> categories = new LinkedList<>();
 
-    /*public List<Category> findAll() throws  Exception {
+        Category category;
+        String sqlQuery;
+
+        //process
+
+        //sql query
+        sqlQuery = "select * from categories";
+
+        try (
+                //Get connection
+                Connection connection = new ConnectionCore().getConnection();
+
+                // Prepare statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+                //ResultSet
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+        ){
+
+            //Set Data
+            while(resultSet.next()){
+                category = new Category();
+
+                category.setId(resultSet.getLong("id"));
+                category.setName(resultSet.getString("name"));
+                category.setDescription(resultSet.getString("description"));
+                category.setUrlKey(resultSet.getString("url_key"));
+                category.setState(resultSet.getString("state"));
+
+                Timestamp createdAt = resultSet.getTimestamp("created_at");
+                if(createdAt != null) {
+                    category.setCreateAt(createdAt.toLocalDateTime());
+                }
+
+                Timestamp updatedAt = resultSet.getTimestamp("updated_at");
+                if (updatedAt != null) {
+                    category.setUpdateAt(updatedAt.toLocalDateTime());
+                }
 
 
+                categories.add(category);
 
+
+            }
+
+
+        }
+
+        //result
+        return categories;
     }
 
+    @Override
     public Category findById(Long id) throws Exception {
 
         //Attributes
@@ -50,7 +103,7 @@ public interface CategoryDao {
             try(
                     //ResultSet
                     ResultSet resultSet = preparedStatement.executeQuery();
-                    ) {
+            ) {
 
                 //Set Data
                 if(resultSet.next()){
@@ -84,7 +137,5 @@ public interface CategoryDao {
         //Result
 
         return category;
-
-    }*/
-
+    }
 }

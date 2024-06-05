@@ -14,7 +14,7 @@ public class Main {
 
         try {
 
-            CategoryDao categoryDao = new CategoryStoreImp();
+            CategoryDao categoryDao = new CategoryDaoImpl();
 
             List<Category> categories = categoryDao.findAll();
 

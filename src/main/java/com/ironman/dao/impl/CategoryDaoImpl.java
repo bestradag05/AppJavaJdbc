@@ -137,4 +137,50 @@ public class CategoryDaoImpl  implements CategoryDao {
         return category;
 
     }
+
+    @Override
+    public int create(Category category) throws Exception {
+        // Attributes
+        int result = 0;
+        String sqlQuery;
+
+        //Process
+
+        sqlQuery = "insert into categories (name, description, url_key, state, created_at, updated_at) values(?, ?, ?, ?, ?)";
+
+        try (
+                //Connection
+                Connection connection = new ConnectionCore().getConnection();
+                //Prepare Statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+                ){
+
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.setString(2, category.getDescription());
+            preparedStatement.setString(3, category.getUrlKey());
+            preparedStatement.setString(4, category.getState());
+            preparedStatement.setTimestamp(5, Timestamp.valueOf(category.getCreateAt()));
+
+            // Execute Query
+
+            result = preparedStatement.executeUpdate();
+
+
+
+        }catch (Exception e){
+
+        }
+
+        //Result
+    }
+
+    @Override
+    public int update(Long id, Category category) throws Exception {
+        return 0;
+    }
+
+    @Override
+    public void deleteById(Long id) throws Exception {
+
+    }
 }

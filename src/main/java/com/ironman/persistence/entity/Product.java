@@ -1,42 +1,42 @@
-package com.ironman.entity;
+package com.ironman.persistence.entity;
 
-import java.time.LocalDate;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Category {
-    // Atributs
+public class Product {
 
-    private long id;
+    //Attributes
+    private Long id;
     private String name;
     private String description;
-    private String urlKey;
-    private String state;
+    private BigDecimal price;
+    private Integer stock;
+    private Long CategoryId;
     private LocalDateTime createAt;
     private LocalDateTime  updateAt;
 
-    //Constructors
+    //Constructor
 
-    public Category() {
+
+    public Product() {
     }
 
-    public Category(long id, String name, String description, String urlKey, String state, LocalDateTime createAt, LocalDateTime updateAt) {
+    public Product(Long id, String name, String description, BigDecimal price, Integer stock, Long categoryId, LocalDateTime createAt, LocalDateTime updateAt) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.urlKey = urlKey;
-        this.state = state;
+        this.price = price;
+        this.stock = stock;
+        CategoryId = categoryId;
         this.createAt = createAt;
         this.updateAt = updateAt;
     }
 
-    //Enccapsulations o methods
-
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,20 +56,28 @@ public class Category {
         this.description = description;
     }
 
-    public String getUrlKey() {
-        return urlKey;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setUrlKey(String urlKey) {
-        this.urlKey = urlKey;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public String getState() {
-        return state;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Long getCategoryId() {
+        return CategoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        CategoryId = categoryId;
     }
 
     public LocalDateTime getCreateAt() {

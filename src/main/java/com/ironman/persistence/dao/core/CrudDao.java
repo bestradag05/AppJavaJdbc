@@ -1,6 +1,4 @@
-package com.ironman.dao.core;
-
-import com.ironman.entity.Category;
+package com.ironman.persistence.dao.core;
 
 import java.util.List;
 

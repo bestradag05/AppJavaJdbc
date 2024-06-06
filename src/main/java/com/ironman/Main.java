@@ -1,12 +1,9 @@
 package com.ironman;
 
 import com.ironman.dao.CategoryDao;
-import com.ironman.dao.ConnectionCore;
 import com.ironman.dao.impl.CategoryDaoImpl;
-import com.ironman.dao.impl.CategoryStoreImp;
 import com.ironman.entity.Category;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {

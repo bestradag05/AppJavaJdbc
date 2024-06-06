@@ -1,7 +1,9 @@
 package com.ironman;
 
-import com.ironman.persistence.dao.CategoryDao;
-import com.ironman.persistence.dao.impl.CategoryDaoImpl;
+import com.ironman.application.dto.category.CategoryDto;
+import com.ironman.application.dto.category.CategorySmallDto;
+import com.ironman.application.service.CategoryService;
+import com.ironman.application.service.Impl.CategoryServiceImpl;
 import com.ironman.persistence.entity.Category;
 
 import java.util.List;
@@ -11,24 +13,20 @@ public class Main {
 
         try {
 
-            CategoryDao categoryDao = new CategoryDaoImpl();
+            CategoryService categoryService = new CategoryServiceImpl();
 
-            List<Category> categories = categoryDao.findAll();
+//            List<CategorySmallDto> categories = categoryService.findAll();
+//
+//           System.out.println("Categories start:");
+//            for (CategorySmallDto category : categories) {
+//                System.out.println("Id: " + category.getId());
+//                System.out.println("Name: " + category.getName());
+//                System.out.println();
+//            }
+//
+//            System.out.println("Categories end.");
 
-           System.out.println("Categories start:");
-            for (Category category : categories) {
-                System.out.println("Id: " + category.getId());
-                System.out.println("Name: " + category.getName());
-                System.out.println("Description: " + category.getDescription());
-                System.out.println("Url key: " + category.getUrlKey());
-                System.out.println("State: " + category.getState());
-                System.out.println("Created at: " + category.getCreateAt());
-                System.out.println();
-            }
-
-            System.out.println("Categories end.");
-
-            /*Category category = categoryDao.findById(66L);
+            CategoryDto category = categoryService.findById(66L);
 
 
             System.out.println("Id: " + category.getId());
@@ -36,7 +34,7 @@ public class Main {
             System.out.println("Description: " + category.getDescription());
             System.out.println("Url key: " + category.getUrlKey());
             System.out.println("State: " + category.getState());
-            System.out.println("Created at: " + category.getCreateAt());*/
+            System.out.println("Created at: " + category.getCreateAt());
 
 
 //            Category category = new Category();

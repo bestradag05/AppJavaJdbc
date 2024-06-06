@@ -11,10 +11,10 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDaoImpl  implements CategoryDao {
+public class CategoryDaoImpl implements CategoryDao {
     @Override
     public List<Category> findAll() throws Exception {
-       // Attributes
+        // Attributes
 
         List<Category> categories = new ArrayList<>();
 
@@ -36,10 +36,10 @@ public class CategoryDaoImpl  implements CategoryDao {
                 //ResultSet
                 ResultSet resultSet = preparedStatement.executeQuery();
 
-        ){
+        ) {
 
             //Set Data
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 category = new Category();
 
                 category.setId(resultSet.getLong("id"));
@@ -49,7 +49,7 @@ public class CategoryDaoImpl  implements CategoryDao {
                 category.setState(resultSet.getString("state"));
 
                 Timestamp createdAt = resultSet.getTimestamp("created_at");
-                if(createdAt != null) {
+                if (createdAt != null) {
                     category.setCreateAt(createdAt.toLocalDateTime());
                 }
 
@@ -91,20 +91,19 @@ public class CategoryDaoImpl  implements CategoryDao {
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
 
-
-        ){
+        ) {
 
             // set parameter
 
             preparedStatement.setLong(1, id);
 
-            try(
+            try (
                     //ResultSet
                     ResultSet resultSet = preparedStatement.executeQuery();
             ) {
 
                 //Set Data
-                if(resultSet.next()){
+                if (resultSet.next()) {
                     category = new Category();
 
                     category.setId(resultSet.getLong("id"));
@@ -114,7 +113,7 @@ public class CategoryDaoImpl  implements CategoryDao {
                     category.setState(resultSet.getString("state"));
 
                     Timestamp createdAt = resultSet.getTimestamp("created_at");
-                    if(createdAt != null) {
+                    if (createdAt != null) {
                         category.setCreateAt(createdAt.toLocalDateTime());
                     }
 
@@ -145,15 +144,14 @@ public class CategoryDaoImpl  implements CategoryDao {
         String sqlQuery;
 
         //Process
-
-        sqlQuery = "insert into categories (name, description, url_key, state, created_at, updated_at) values(?, ?, ?, ?, ?)";
+        sqlQuery = "insert into categories (name, description, url_key, state, created_at) values(?, ?, ?, ?, ?)";
 
         try (
                 //Connection
                 Connection connection = new ConnectionCore().getConnection();
                 //Prepare Statement
                 PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-                ){
+        ) {
 
             preparedStatement.setString(1, category.getName());
             preparedStatement.setString(2, category.getDescription());
@@ -167,20 +165,84 @@ public class CategoryDaoImpl  implements CategoryDao {
 
 
 
-        }catch (Exception e){
+
+        } catch (Exception e) {
 
         }
 
         //Result
+
+        return result;
     }
 
     @Override
     public int update(Long id, Category category) throws Exception {
-        return 0;
+        // Attributes
+        int result = 0;
+        String sqlQuery;
+
+        //Process
+        sqlQuery = "update categories set  name=?, description=?, url_key=?, updated_at=? where id=?";
+
+        try (
+                //Connection
+                Connection connection = new ConnectionCore().getConnection();
+                //Prepare Statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        ) {
+
+            preparedStatement.setString(1, category.getName());
+            preparedStatement.setString(2, category.getDescription());
+            preparedStatement.setString(3, category.getUrlKey());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(category.getUpdateAt()));
+            preparedStatement.setLong(5, id);
+
+            // Execute Query
+
+            result = preparedStatement.executeUpdate();
+
+
+
+
+        } catch (Exception e) {
+
+        }
+
+        //Result
+
+        return result;
     }
 
     @Override
     public void deleteById(Long id) throws Exception {
+
+        // Attributes
+        int result = 0;
+        String sqlQuery;
+
+        //Process
+        sqlQuery = "delete from categories where id = ?";
+
+        try (
+                //Connection
+                Connection connection = new ConnectionCore().getConnection();
+                //Prepare Statement
+                PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        ) {
+
+            preparedStatement.setLong(1, id);
+
+            // Execute Query
+
+            preparedStatement.executeUpdate();
+
+
+
+
+        } catch (Exception e) {
+
+        }
+
 
     }
 }

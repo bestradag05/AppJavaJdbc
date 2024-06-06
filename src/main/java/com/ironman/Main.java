@@ -6,11 +6,11 @@ import com.ironman.dao.impl.CategoryDaoImpl;
 import com.ironman.dao.impl.CategoryStoreImp;
 import com.ironman.entity.Category;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
 
         try {
 
@@ -42,7 +42,31 @@ public class Main {
             System.out.println("Created at: " + category.getCreateAt());*/
 
 
-        }catch (Exception e) {
+//            Category category = new Category();
+//            category.setName("Categoria Bryan2");
+//            category.setDescription("Sin detalles");
+//            category.setUrlKey("categoria-a");
+//            category.setState("A");
+//            category.setCreateAt(LocalDateTime.now());
+//
+//            int result = categoryDao.create(category);
+//            System.out.println("Create: " + result);
+
+
+//            Category category = new Category();
+//            category.setName("Categoria Bryan2");
+//            category.setDescription("Sin detalles");
+//            category.setUrlKey("categoria-a2");
+//            category.setUpdateAt(LocalDateTime.now());
+//
+//            int result = categoryDao.update(108L, category);
+//            System.out.println("Update: " + result);
+
+
+//            categoryDao.deleteById(108L);
+
+
+        } catch (Exception e) {
 
             System.out.println("Error: " + e.getMessage());
         }
